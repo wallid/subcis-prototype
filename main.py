@@ -15,7 +15,8 @@ def prompts():
         reciters_list += f"{reciter['id']}) {reciter['reciter_name']} [{reciter['style']}]\n"
 
     surah_id = input("Enter surah number: ")
-    reciter_id = input("Select reciter from the following\n" + reciters_list +
+    reciter_id = input("Select reciter from the following\n" + reciters_list + \
+    "[Murattal - normal , Mujawwad - slow ]" +
                        "\nEnter reciter number: ")
 
     # validation
@@ -84,12 +85,17 @@ def start(reciter_id, surah_id):
         else:
             while(control != ""):
                 try:
+                    # repeat
                     if(int(control) == 1):
                         recite_ayah(previous_ayah)
+                    # reveal
                     if(int(control) == 2):
+                        print("\n... listen carefully ...\n")
                         recite_ayah(ayah)
+                        print("... read ...\n")
+
                 except ValueError:
-                    print("")
+                    print("invalid menu control")
                 control = input("\nControls\n1) Repeat 2) Reveal\nPress [Enter] to continue: ")
 
 
