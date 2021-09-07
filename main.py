@@ -113,7 +113,13 @@ def main():
     print("Assalamu alaykum\nThis is a prototype subcis tool.\n")
     response = prompts()
 
-    start(response["reciter"], response["surah_id"], response["simulator_starts"])
+    continue_reading = True
+    current_surah = response["surah_id"]
+    while(continue_reading):
+        start(response["reciter"], current_surah, response["simulator_starts"])
+        continue_next_surah = input("Would you like to continue to the next surah [y/n]: ")
+        continue_reading = continue_next_surah == 'y'
+        current_surah = str(int(current_surah) + 1)
 
 
 if __name__ == "__main__":
