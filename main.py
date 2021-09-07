@@ -19,7 +19,6 @@ def prompts():
     "[Murattal - normal , Mujawwad - slow ]" +
                        "\nEnter reciter number: ")
     simulator_starts = input("Would you like to start[y/n]: ")
-    print(simulator_starts)
     simulator_starts = simulator_starts == 'n'
 
     # validation
@@ -54,13 +53,6 @@ def get_surah(surah_id):
 
 def play_audio_file(url):
     url = f"https://verses.quran.com/{url}"
-    # # response = requests.get(url)
-    # p = vlc.MediaPlayer(url)
-    # p.play()
-    # duration = p.get_length() / 1000
-    # print(p.get_length())
-    # print(duration)
-    # time.sleep(duration)
     vlc_instance = vlc.Instance()
     player = vlc_instance.media_player_new()
     media = vlc_instance.media_new(url)
@@ -78,7 +70,6 @@ def recite_ayah(ayah):
 
 
 def start(reciter_id, surah_id, simulator_starts):
-
     surah = get_surah(surah_id)
     ayahs = get_ayah_recitations(reciter_id, surah_id, surah["verses_count"])
 
