@@ -120,6 +120,8 @@ def main():
         continue_next_surah = input("Would you like to continue to the next surah [y/n]: ")
         continue_reading = continue_next_surah == 'y'
         current_surah = str(int(current_surah) + 1)
+        if(int(current_surah) > 114 or int(current_surah) < 0):
+            break
 
 
 if __name__ == "__main__":
