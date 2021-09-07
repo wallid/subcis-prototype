@@ -15,8 +15,8 @@ def prompts():
         reciters_list += f"{reciter['id']}) {reciter['reciter_name']} [{reciter['style']}]\n"
 
     surah_id = input("Enter surah number: ")
-    reciter_id = input("Select reciter from the following\n" + reciters_list + \
-    "[Murattal - normal , Mujawwad - slow ]" +
+    reciter_id = input("Select reciter from the following i.e <reciter> [<reciter-style>]\n" + reciters_list + \
+    "[Murattal - normal , Mujawwad - slow, Muallim - teacher ]" +
                        "\nEnter reciter number: ")
     simulator_starts = input("Would you like to start[y/n]: ")
     simulator_starts = simulator_starts == 'n'
@@ -62,7 +62,7 @@ def play_audio_file(url):
     media = vlc_instance.media_new(audio_url)
     player.set_media(media)
     player.play()
-    time.sleep(1.5)
+    time.sleep(1)
     duration = player.get_length() / 1000
     time.sleep(duration)
 
