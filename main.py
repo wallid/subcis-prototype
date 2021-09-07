@@ -18,12 +18,16 @@ def prompts():
     reciter_id = input("Select reciter from the following\n" + reciters_list + \
     "[Murattal - normal , Mujawwad - slow ]" +
                        "\nEnter reciter number: ")
+    simulator_starts = input("Would you like to start[y/n]: ")
+    print(simulator_starts)
+    simulator_starts = simulator_starts == 'n'
 
     # validation
 
     response = {
         "surah_id": int(surah_id),
-        "reciter": int(reciter_id)
+        "reciter": int(reciter_id),
+        "simulator_starts": simulator_starts
     }
 
     return response
@@ -50,10 +54,20 @@ def get_surah(surah_id):
 
 def play_audio_file(url):
     url = f"https://verses.quran.com/{url}"
-    # response = requests.get(url)
-    p = vlc.MediaPlayer(url)
-    p.play()
-    duration = p.get_length() / 1000
+    # # response = requests.get(url)
+    # p = vlc.MediaPlayer(url)
+    # p.play()
+    # duration = p.get_length() / 1000
+    # print(p.get_length())
+    # print(duration)
+    # time.sleep(duration)
+    vlc_instance = vlc.Instance()
+    player = vlc_instance.media_player_new()
+    media = vlc_instance.media_new(url)
+    player.set_media(media)
+    player.play()
+    time.sleep(1.5)
+    duration = player.get_length() / 1000
     time.sleep(duration)
 
 
@@ -63,7 +77,7 @@ def recite_ayah(ayah):
 
 
 
-def start(reciter_id, surah_id):
+def start(reciter_id, surah_id, simulator_starts):
 
     surah = get_surah(surah_id)
     ayahs = get_ayah_recitations(reciter_id, surah_id, surah["verses_count"])
@@ -74,13 +88,13 @@ def start(reciter_id, surah_id):
 
     print(surah_information)
 
-    simulator = True
+    simulator = simulator_starts
     control = "-1"
     previous_ayah = {}
 
     for ayah in ayahs:
         if(simulator):
-            print("... reciters turn ... ")
+            print("\n... reciters turn ...\n")
             recite_ayah(ayah)
         else:
             while(control != ""):
@@ -92,7 +106,7 @@ def start(reciter_id, surah_id):
                     if(int(control) == 2):
                         print("\n... listen carefully ...\n")
                         recite_ayah(ayah)
-                        print("... read ...\n")
+                        print("\n... read ...\n")
 
                 except ValueError:
                     print("invalid menu control")
@@ -108,7 +122,7 @@ def main():
     print("Assalamu alaykum\nThis is a prototype subcis tool.\n")
     response = prompts()
 
-    start(response["reciter"], response["surah_id"])
+    start(response["reciter"], response["surah_id"], response["simulator_starts"])
 
 
 if __name__ == "__main__":
