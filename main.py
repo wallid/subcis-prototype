@@ -52,10 +52,14 @@ def get_surah(surah_id):
 
 
 def play_audio_file(url):
-    url = f"https://verses.quran.com/{url}"
+    audio_url = f"https://verses.quran.com/{url}"
+
+    if("mirror" in url):
+        audio_url = f"http:{url}"
+
     vlc_instance = vlc.Instance()
     player = vlc_instance.media_player_new()
-    media = vlc_instance.media_new(url)
+    media = vlc_instance.media_new(audio_url)
     player.set_media(media)
     player.play()
     time.sleep(1.5)
