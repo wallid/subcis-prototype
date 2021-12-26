@@ -12,7 +12,7 @@ A simple python prototype for doing subcis of the Quran. Subcis is when a group 
 1. Pull repo down and runs below usage command 
 
 ## Usage
-
+- `pip install -r requirements.txt`
 - `python3 main.py` - then select your surah and reciter.
 
 
